@@ -109,8 +109,26 @@ function fetchJson(_0x373bf4, _0x5a7592) {
     var _0x8c4196 = _0x351c;
     try {
       var _0x2d6ca2 = yield fetchWithTimeout(_0x373bf4, _0x5a7592 || {});
-      if (_0x2d6ca2["ok"])
-        return yield _0x2d6ca2[_0x8c4196(156)]();
+      console.log("[PlayIMDb] VAPlayer HTTP status:", _0x2d6ca2.status, "ok:", _0x2d6ca2.ok, "content-type:", _0x2d6ca2.headers.get("content-type"));
+      var _0xresponseText = yield _0x2d6ca2.text();
+      var _0xresponseJson;
+      try {
+        _0xresponseJson = JSON.parse(_0xresponseText);
+      } catch (_0xparseError) {
+        console.log("[PlayIMDb] VAPlayer response was not JSON; body length:", _0xresponseText.length, "preview:", _0xresponseText.slice(0, 300));
+        return null;
+      }
+      var _0xstreamList = _0xresponseJson && _0xresponseJson.data && _0xresponseJson.data.stream_urls;
+      console.log("[PlayIMDb] VAPlayer JSON summary:", JSON.stringify({
+        status_code: _0xresponseJson.status_code,
+        status: _0xresponseJson.status,
+        topLevelKeys: Object.keys(_0xresponseJson),
+        dataKeys: _0xresponseJson.data ? Object.keys(_0xresponseJson.data) : [],
+        streamUrlCount: Array.isArray(_0xstreamList) ? _0xstreamList.length : (_0xstreamList ? "present_non_array" : 0),
+        message: _0xresponseJson.message || _0xresponseJson.error || null
+      }));
+      if (_0x2d6ca2.ok)
+        return _0xresponseJson;
       return null;
     } catch (_0x45ec7a) {
       return console[_0x8c4196(_0x588720._0x263c7e)]("[" + PROVIDER_NAME + _0x8c4196(174) + _0x45ec7a), null;
