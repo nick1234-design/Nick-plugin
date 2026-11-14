@@ -156,7 +156,7 @@ function getStreams(_0x8253ec, _0x3a181f, _0x7a0c24, _0x32fd74) {
       var _0x5348b1 = _0x3a181f === "tv" || _0x3a181f === _0x11e389(_0x432895._0x36ad1a), _0x305f95 = _0x5348b1 ? "tv" : "movie";
       if (!_0x8253ec)
         return console["log"]("[" + PROVIDER_NAME + "] Missing TMDB ID"), _0x1e315d;
-      var _0x2a5fa1 = yield getTmdbMetadata(_0x8253ec, _0x305f95, _0x7a0c24, _0x32fd74), _0x2f5792 = BASE_API + _0x11e389(_0x432895._0x33b537) + _0x8253ec + "&type=" + _0x305f95;
+      var _0x2a5fa1 = yield getTmdbMetadata(_0x8253ec, _0x305f95, _0x7a0c24, _0x32fd74), _0x2f5792 = BASE_API + (_0x8253ec.startsWith("tt") ? "?imdb=" : "?tmdb=") + encodeURIComponent(String(_0x8253ec)) + "&type=" + _0x305f95;
       if (_0x5348b1) {
         if (!_0x7a0c24 || !_0x32fd74)
           return _0x1e315d;
